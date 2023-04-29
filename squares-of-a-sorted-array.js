@@ -1,4 +1,4 @@
-function squares(arr) {
+function sortedSquares(arr) {
   const result = [];
 
   let left = 0;
@@ -19,4 +19,4 @@ function squares(arr) {
   return result;
 }
 
-squares([-4, -1, 0, 3, 10]);
+sortedSquares([-4, -1, 0, 3, 10]);
