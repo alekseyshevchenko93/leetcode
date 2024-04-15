@@ -1,5 +1,5 @@
 const isSolved = (board) => {
-  return board.toString() === '1,2,3,4,5,0';
+  return board.toString() === '1,2,3,4,0,0';
 };
 
 const copyBoard = (board) => JSON.parse(JSON.stringify(board));
@@ -78,6 +78,6 @@ const slidingPuzzle = function(board) {
 };
 
 // console.log(slidingPuzzle([[1,2,3],[4,0,5]]));
-console.log(slidingPuzzle([[1,2,3],[5,4,0]]));
+console.log(slidingPuzzle([[1,2,3],[0,0,4]]));
 // console.log(slidingPuzzle([[4,1,2],[5,0,3]]));
 
