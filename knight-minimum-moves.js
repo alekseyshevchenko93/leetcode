@@ -41,7 +41,6 @@ function knight(start, finish) {
         const newy = +y + movey;
         const key = `${String.fromCharCode(newx)}${newy}`;
 
-        // console.log('push', key, x,y, movex, movey);
         if (newx >= 97 && newx <= 104 && newy >= 1 && newy <= BOARD_LEN && !visited.has(key)) {
           q.push(key)
         }
