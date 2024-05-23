@@ -13,5 +13,22 @@ const maxProfit = function (prices) {
   return maxProfit;
 };
 
+var maxProfit2 = function(arr) {
+  let maxElem = 0, maxProfit = 0;
+
+  for (let i = arr.length - 1; i >= 0; i--) {
+      const item = arr[i];
+
+      if (maxElem - item > maxProfit) {
+          maxProfit = maxElem - item;
+      }
+
+      maxElem = Math.max(maxElem, item);
+  }
+
+  return maxProfit;
+};
+
+
 // console.log(maxProfit([7, 1, 5, 3, 6, 4]));
 console.log(maxProfit([7, 6, 4, 3, 1]));
