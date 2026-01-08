@@ -1,7 +1,6 @@
 const maxProduct = function(root) {
   const totalSum = getTotalSum(root);
   let maxProduct = Number.NEGATIVE_INFINITY;
-  console.log('total', totalSum);
 
   const helper = (node) => {
     if (!node) {
@@ -15,13 +14,8 @@ const maxProduct = function(root) {
     const sum1 = helper(node.left);
     const sum2 = helper(node.right);
 
-    // const product1 = (node.val + sum1) * (totalSum - node.val - sum1);
     const product1 = (totalSum - sum2) * sum2;
-    // const product2 = (node.val + sum2) * (totalSum - node.val - sum2);
     const product2 = (totalSum - sum1) * sum1;
-
-    console.log('product 1:', node.val, sum1, sum2, product1, node.val + sum1, totalSum - node.val - sum1);
-    console.log('product 2:', node.val, sum1, sum2, product2, node.val + sum2, totalSum - node.val - sum2);
 
     maxProduct = Math.max(maxProduct, product1, product2);
 
