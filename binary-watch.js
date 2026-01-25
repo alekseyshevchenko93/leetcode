@@ -1,10 +1,6 @@
 // Hours: 4 LEDs on top
 // Minutes: 6 LEDs on bottom
 
-function read() {
-
-}
-
 const readBinaryWatch = function(turnedOn) {
   const results = [];
 
@@ -14,9 +10,7 @@ const readBinaryWatch = function(turnedOn) {
 
       if (count === turnedOn) {
         const time = `${i}:${padLeft(j)}`;
-        console.log('time', time);
         results.push(time);
-        // console.log('time:', i, j, count);
       }
     }
   }
