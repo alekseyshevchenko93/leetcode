@@ -14,4 +14,5 @@ const findComplement = function(num) {
 };
 
 findComplement(5);
+findComplement(5);
 findComplement(2);
