@@ -4,10 +4,7 @@ const hasAlternatingBits = function(n) {
   while (n) {
     const bit = n & 1;
   
-    console.log('bit', bit);
-
     if (bit === lastBit) {
-      console.log('false');
       return false;
     }
 
@@ -16,7 +13,6 @@ const hasAlternatingBits = function(n) {
     n = n >> 1;
   }
 
-  console.log('true');
   return true;
 };
 
