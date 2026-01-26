@@ -7,7 +7,6 @@ const binaryGap = function(num) {
 
   while (num) {
     const bit = num & 1;
-    console.log('bit', bit);
 
     if (bit) {
       if (lastOnePos !== null) {
@@ -21,7 +20,6 @@ const binaryGap = function(num) {
     i++;
   }
 
-  console.log('max distance', maxDistance);
   return maxDistance;
 };
 
