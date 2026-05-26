@@ -4,6 +4,83 @@ class Node {
     this.paths = [];
   }
 }
+
+class PQ {
+  constructor() {
+    this.heap = [];
+  }
+
+  size() {
+    return this.heap.length;
+  }
+
+  peek() {
+    return this.heap[0];
+  }
+
+  push(value) {
+    this.heap.push(value);
+    this._bubbleUp();
+  }
+
+  pop() {
+    if (this.size() === 1) return this.heap.pop();
+
+    const min = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this._bubbleDown();
+
+    return min;
+  }
+
+  _bubbleUp() {
+    let index = this.heap.length - 1;
+
+    while (index > 0) {
+      const parentIndex = Math.floor((index - 1) / 2);
+
+      if (this.heap[parentIndex].distance <= this.heap[index].distance) break;
+
+      [this.heap[parentIndex], this.heap[index]] =
+        [this.heap[index], this.heap[parentIndex]];
+
+      index = parentIndex;
+    }
+  }
+
+  _bubbleDown() {
+    let index = 0;
+    const length = this.heap.length;
+
+    while (true) {
+      let left = 2 * index + 1;
+      let right = 2 * index + 2;
+      let smallest = index;
+
+      if (
+        left < length &&
+        this.heap[left].distance < this.heap[smallest].distance
+      ) {
+        smallest = left;
+      }
+
+      if (
+        right < length &&
+        this.heap[right].distance < this.heap[smallest].distance
+      ) {
+        smallest = right;
+      }
+
+      if (smallest === index) break;
+
+      [this.heap[index], this.heap[smallest]] =
+        [this.heap[smallest], this.heap[index]];
+
+      index = smallest;
+    }
+  }
+}
+
 const minCost = function(n, edges) {
   console.log(n, edges);
   
@@ -30,43 +107,52 @@ const minCost = function(n, edges) {
     })
   }
 
-  let minCost = Number.POSITIVE_INFINITY;
+  const visited = new Set;
+  const distances = {};
+  const heap = new PQ;
 
-  function traverse(node, currentCost = 0, visited = new Set) {
-    if (visited.has(node.id)) {
-      return;
+  heap.push({ id: 0, distance: 0 });
+
+  distances[0] = 0;
+
+  for (let i = 1; i < n; i++) {
+    distances[i] = Number.POSITIVE_INFINITY;
+  }
+
+  while (heap.size()) {
+    const node = heap.pop();
+    
+    visited.add(node.id);
+    
+    const { id, distance } = node;
+    
+    if (id === n - 1) {
+      return distance;
     }
-
-    if (node.id === n - 1) {
-      visited.add(node.id);
-      minCost = Math.min(minCost, currentCost);
-      return;
-    }
-
-    if (currentCost >= minCost) {
-      return;
-    }
-
-    const { id, paths } = node;
-    visited.add(id);
-    console.log('node', node.id, node.paths);
-
+    
+    const v = idToNodeMap[id];
+    const { paths } = v;
+    
     for (let path of paths) {
-      traverse(idToNodeMap[path.id], currentCost + path.w, new Set([...visited]))
+      if (!visited.has(path.id)) {
+        heap.push({ id: path.id, distance: distances[id] + path.w });
+        
+        if (distances[id] + path.w < distances[path.id]) {
+          distances[path.id] = distances[id] + path.w;
+        }
+      }
     }
   }
 
-  traverse(nodes[0]);
-
-  // console.log(JSON.stringify(nodes, null, 2));
-  
-  const result = minCost === Number.POSITIVE_INFINITY ? -1 : minCost;
+  const result = distances[n - 1];
   console.log('result', result);
 
   return result;
 };
 
+
 // minCost(4,  [[0,1,3],[3,1,1],[2,3,4],[0,2,2]]);
+minCost(3, [[2,0,12],[1,0,5],[0,1,15]]);
 // minCost(4, [[0,2,1],[2,1,1],[1,3,1],[2,3,3]]);
 // minCost(2, [[0,1,13],[1,0,1]]);
-minCost(4, [[2,3,25],[2,1,18],[3,1,2]]);
+// minCost(4, [[2,3,25],[2,1,18],[3,1,2]]);
