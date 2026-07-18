@@ -2,13 +2,23 @@
   "name": "leetcode",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/alekseyshevchenko93/leetcode#readme",
+  "bugs": {
+    "url": "https://github.com/alekseyshevchenko93/leetcode/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alekseyshevchenko93/leetcode.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
   "main": "binary-tree-inorder-traversal.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "@datastructures-js/heap": "^4.3.7",
     "heap": "^0.2.7"
   }
 }
